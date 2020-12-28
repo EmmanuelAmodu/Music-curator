@@ -1,0 +1,23 @@
+{
+  "name": "music-curator",
+  "version": "1.0.0",
+  "description": "Music curator",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EmmanuelAmodu/Music-curator.git"
+  },
+  "keywords": [
+    "Music",
+    "curator"
+  ],
+  "author": "Emmanuel Amodu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EmmanuelAmodu/Music-curator/issues"
+  },
+  "homepage": "https://github.com/EmmanuelAmodu/Music-curator#readme"
+}
