@@ -18,8 +18,17 @@ const albumSchema = new Schema({
   }],
   artist: {
     type: Schema.Types.ObjectId,
-    ref: 'Users',
+    ref: 'Artist',
     require: true
+  },
+  album_art: {
+    type: String,
+    minlength: 8,
+    maxlength: 255,
+  },
+  description: {
+    type: String,
+    maxlength: 2000,
   },
 }, { timestamps: true });
 

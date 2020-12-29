@@ -24,11 +24,22 @@ const trackSchema = new Schema({
     ref: 'Artist',
     require: true
   },
+  duration: {
+    type: Number
+  },
   featured_artists: [{
     type: Schema.Types.ObjectId,
     ref: 'Artist',
     require: true
   }],
+  lyrics: [{
+    segment: Number,
+    text: String,
+    lang: {
+      type: String,
+      enum: ['eng', 'yor', 'igb', 'hau']
+    }
+  }]
 }, { timestamps: true });
 
 trackSchema.index({ title: 1, album: 1 }, { unique: true });

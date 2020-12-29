@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const genreSchema = new Schema({
+const artistSchema = new Schema({
   name: {
     type: String,
     minlength: 8,
@@ -17,5 +17,5 @@ const genreSchema = new Schema({
   },
 }, { timestamps: true });
 
-genreSchema.index({ name: 1 }, { unique: true });
-module.exports = mongoose.model('Genre', genreSchema);
+artistSchema.index({ name: 1 }, { unique: true });
+module.exports = mongoose.model('Artist', artistSchema);

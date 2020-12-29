@@ -1,34 +1,55 @@
 const router = require('express').Router();
 const albumController = require('./controller')
+const asyncErrorHandler = require('./asyncErrorHandler')
 
 router.post(
-  '',
-  albumController.createAlbum
+  '/album',
+  asyncErrorHandler(albumController.createAlbum)
 );
 
 router.get(
-  '',
-  albumController.getAlbum
+  '/album/:id',
+  asyncErrorHandler(albumController.getAlbum)
+);
+
+router.get(
+  '/album/:id/tracks',
+  asyncErrorHandler(albumController.getAlbumTracks)
 );
 
 router.patch(
-  '/:id',
-  albumController.updateAlbum
+  '/album/:id',
+  asyncErrorHandler(albumController.updateAlbum)
 );
 
 router.delete(
-  '/:id',
-  albumController.deleteAlbum
+  '/album/:id',
+  asyncErrorHandler(albumController.deleteAlbum)
 );
 
 router.post(
   '/track',
-  albumController.addTrack
+  asyncErrorHandler(albumController.addTrack)
 );
 
-router.post(
+router.patch(
+  '/album/:album/track/:track',
+  asyncErrorHandler(albumController.addTrackToAlum)
+);
+
+router.patch(
+  '/track/:track',
+  asyncErrorHandler(albumController.updateTrack)
+);
+
+router.patch(
+  '/track/:track',
+  asyncErrorHandler(albumController.removeTrackFromAlbum)
+);
+
+router.delete(
   '/track/:id',
-  albumController.deleteTrack
+  asyncErrorHandler(albumController.deleteTrack)
 );
 
 module.exports = router;

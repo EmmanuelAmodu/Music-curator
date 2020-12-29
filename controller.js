@@ -4,20 +4,15 @@ const TrackModel = require('./models/track.model')
 module.exports = {
   async createAlbum(req, res) {
     const album = await AlbumModel.create(req.body)
-    if (album) return res.send({
+    res.send({
       status: true,
       data: album
     });
-
-    res.status(400).send({
-      status: false,
-      message: 'There was an erro with this request. Please retry'
-    })
   },
 
   async getAlbum(req, res) {
-    const album = await AlbumModel.find(req.body)
-    if (album && album.length > 0) return res.send({
+    const album = await AlbumModel.findById(req.params.id)
+    if (album) return res.send({
       status: true,
       data: album
     });
@@ -25,6 +20,21 @@ module.exports = {
     res.status(404).send({
       status: false,
       message: 'No Album matches your request'
+    })
+  },
+
+  // TODO get many album
+
+  async getAlbumTracks(req, res) {
+    const tracks = await TrackModel.find({album: req.params.id})
+    if (tracks && tracks.length > 0) return res.send({
+      status: true,
+      data: tracks
+    });
+
+    res.status(404).send({
+      status: false,
+      message: 'No tracks found for this album'
     })
   },
 
@@ -33,15 +43,10 @@ module.exports = {
       new: true,
     })
 
-    if (album) return res.send({
+    res.send({
       status: true,
       data: album
     });
-
-    res.status(404).send({
-      status: false,
-      message: 'No Album matches your request'
-    })
   },
 
   async deleteAlbum(req, res) {
@@ -59,15 +64,10 @@ module.exports = {
 
   async addTrack(req, res) {
     const album = await TrackModel.create(req.body)
-    if (album) return res.send({
+    res.send({
       status: true,
       data: album
     });
-
-    res.status(400).send({
-      status: false,
-      message: 'There was an erro with this request. Please retry'
-    })
   },
 
   async addTrackToAlum(req, res) {
@@ -80,9 +80,9 @@ module.exports = {
       data: track
     });
 
-    res.status(400).send({
+    res.status(404).send({
       status: false,
-      message: 'There was an erro with this request. Please retry'
+      message: 'No Track matches your request'
     })
   },
 
