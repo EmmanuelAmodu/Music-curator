@@ -3,32 +3,32 @@ const albumController = require('./controller')
 
 router.post(
   '',
-  asyncHandler(albumController.createAlbum)
+  albumController.createAlbum
 );
 
 router.get(
   '',
-  asyncHandler(albumController.getAlbum)
+  albumController.getAlbum
 );
 
 router.patch(
   '/:id',
-  asyncHandler(albumController.updateAlbum)
+  albumController.updateAlbum
 );
 
 router.delete(
   '/:id',
-  asyncHandler(albumController.deleteAlbum)
+  albumController.deleteAlbum
 );
 
 router.post(
-  '/:id/track',
-  asyncHandler(albumController.addTrack)
+  '/track',
+  albumController.addTrack
 );
 
 router.post(
-  '/:id/track/:id',
-  asyncHandler(albumController.deleteTrack)
+  '/track/:id',
+  albumController.deleteTrack
 );
 
 module.exports = router;

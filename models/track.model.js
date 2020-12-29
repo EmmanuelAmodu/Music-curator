@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const albumSchema = new Schema({
+const trackSchema = new Schema({
   title: {
     type: String,
     minlength: 8,
@@ -13,7 +13,7 @@ const albumSchema = new Schema({
   },
   album: {
     type: Schema.Types.ObjectId,
-    ref: 'Users',
+    ref: 'Album',
   },
   genre: {
     type: Schema.Types.ObjectId,
@@ -21,13 +21,15 @@ const albumSchema = new Schema({
   },
   artist: {
     type: Schema.Types.ObjectId,
-    ref: 'Users',
+    ref: 'Artist',
+    require: true
   },
   featured_artists: [{
     type: Schema.Types.ObjectId,
-    ref: 'Users',
+    ref: 'Artist',
+    require: true
   }],
 }, { timestamps: true });
 
-albumSchema.index({ title: 1, album: 1 }, { unique: true });
-module.exports = mongoose.model('Album', albumSchema);
+trackSchema.index({ title: 1, album: 1 }, { unique: true });
+module.exports = mongoose.model('Track', trackSchema);

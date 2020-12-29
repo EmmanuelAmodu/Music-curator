@@ -3,40 +3,132 @@ const TrackModel = require('./models/track.model')
 
 module.exports = {
   async createAlbum(req, res) {
-    const album = await AlbumModel.create(req.body);
-    if (album) return req.send({
+    const album = await AlbumModel.create(req.body)
+    if (album) return res.send({
       status: true,
       data: album
     });
 
-    req.status()
+    res.status(400).send({
+      status: false,
+      message: 'There was an erro with this request. Please retry'
+    })
   },
 
   async getAlbum(req, res) {
+    const album = await AlbumModel.find(req.body)
+    if (album && album.length > 0) return res.send({
+      status: true,
+      data: album
+    });
 
+    res.status(404).send({
+      status: false,
+      message: 'No Album matches your request'
+    })
   },
 
   async updateAlbum(req, res) {
+    const album = await AlbumModel.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    })
 
+    if (album) return res.send({
+      status: true,
+      data: album
+    });
+
+    res.status(404).send({
+      status: false,
+      message: 'No Album matches your request'
+    })
   },
 
   async deleteAlbum(req, res) {
+    const album = await AlbumModel.findByIdAndDelete(req.params.id)
+    if (album) return res.send({
+      status: true,
+      data: 'Album successfully deleted'
+    });
 
+    res.status(404).send({
+      status: false,
+      message: 'No Album matches your request'
+    })
   },
 
   async addTrack(req, res) {
+    const album = await TrackModel.create(req.body)
+    if (album) return res.send({
+      status: true,
+      data: album
+    });
 
+    res.status(400).send({
+      status: false,
+      message: 'There was an erro with this request. Please retry'
+    })
+  },
+
+  async addTrackToAlum(req, res) {
+    const track = await TrackModel.findByIdAndUpdate(req.params.track, {
+      album: req.params.album
+    }, {new: true});
+
+    if (track) return res.send({
+      status: true,
+      data: track
+    });
+
+    res.status(400).send({
+      status: false,
+      message: 'There was an erro with this request. Please retry'
+    })
   },
 
   async deleteTrack(req, res) {
+    const track = await TrackModel.findByIdAndDelete(req.params.id)
+    if (track) return res.send({
+      status: true,
+      data: 'Album successfully deleted'
+    });
 
+    res.status(404).send({
+      status: false,
+      message: 'No Album matches your request'
+    })
   },
 
-  async editTrack(req, res) {
+  async removeTrackFromAlbum(req, res) {
+    const track = await TrackModel.findByIdAndUpdate(req.params.track, {
+      album: null
+    }, {new: true});
+  
+    if (track) return res.send({
+      status: true,
+      message: 'Album successfully dissociated',
+      data: track
+    });
 
+    res.status(404).send({
+      status: false,
+      message: 'No Track matches your request'
+    })
   },
 
   async updateTrack(req, res) {
+    const track = await TrackModel.findByIdAndUpdate(
+      req.params.track, req.body, { new: true });
 
+    if (track) return res.send({
+      status: true,
+      message: 'Album successfully updated',
+      data: track
+    });
+
+    res.status(404).send({
+      status: false,
+      message: 'No Track matches your request'
+    })
   },
 };

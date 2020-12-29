@@ -5,8 +5,9 @@ async function main(app) {
     const db = await mongoose.connect('mongodb://localhost:27017/music_curator?retryWrites=true&w=majority', {
       useNewUrlParser: true,
       useUnifiedTopology: true
-    })//.then(e => console.log(e)).catch(err => console.log(err))
-    return app.listen(4000, () => console.log(`Listen on port 4000`))
+    })
+
+    return app.listen(6000, () => console.log(`Listen on port 6000`))
   } catch (error) {
     console.log(error)
     return new Error('App initailization failed')

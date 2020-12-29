@@ -4,6 +4,7 @@
   "description": "Music curator",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "jest"
   },
   "repository": {
@@ -19,5 +20,10 @@
   "bugs": {
     "url": "https://github.com/EmmanuelAmodu/Music-curator/issues"
   },
-  "homepage": "https://github.com/EmmanuelAmodu/Music-curator#readme"
+  "homepage": "https://github.com/EmmanuelAmodu/Music-curator#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.11.9"
+  }
 }
