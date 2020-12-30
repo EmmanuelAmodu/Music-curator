@@ -17,7 +17,7 @@ describe("End points", () => {
   beforeEach(async () => {
     const application = require("../../application")
     server = await application(app, mongoose, 5000)
-    await dataToModel()
+    await createArtistForTest()
     record.artist = artist._id;
   });
 
@@ -155,7 +155,7 @@ describe("End points", () => {
   });
 });
 
-async function dataToModel() {
+async function createArtistForTest() {
   try {
     artist = await ArtistModel
       .create({ name: 'Travis Scot' });
