@@ -99,30 +99,13 @@ module.exports = {
     })
   },
 
-  async removeTrackFromAlbum(req, res) {
-    const track = await TrackModel.findByIdAndUpdate(req.params.track, {
-      album: null
-    }, {new: true});
-  
-    if (track) return res.send({
-      status: true,
-      message: 'Album successfully dissociated',
-      data: track
-    });
-
-    res.status(404).send({
-      status: false,
-      message: 'No Track matches your request'
-    })
-  },
-
   async updateTrack(req, res) {
     const track = await TrackModel.findByIdAndUpdate(
       req.params.track, req.body, { new: true });
 
     if (track) return res.send({
       status: true,
-      message: 'Album successfully updated',
+      message: 'Track successfully updated',
       data: track
     });
 

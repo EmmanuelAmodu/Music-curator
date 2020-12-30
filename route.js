@@ -42,11 +42,6 @@ router.patch(
   asyncErrorHandler(albumController.updateTrack)
 );
 
-router.patch(
-  '/track/:track',
-  asyncErrorHandler(albumController.removeTrackFromAlbum)
-);
-
 router.delete(
   '/track/:id',
   asyncErrorHandler(albumController.deleteTrack)

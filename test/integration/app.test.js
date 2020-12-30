@@ -38,7 +38,7 @@ describe("End points", () => {
     expect(res.status).toBe(200);
   });
 
-  it("should return 400 for duplicate record", async () => {
+  it("should return 500 for duplicate record", async () => {
     await request(server).post("/album").send(record);
     const res = await request(server).post("/album").send(record);
     expect(res.status).toBe(500);
@@ -137,6 +137,20 @@ describe("End points", () => {
   it("status should be 404 if delete operation is done non existing track", async () => {
     const res = await request(server)
       .delete(`/track/5fcbf46161fc5b0011172255`).send();
+    expect(res.status).toBe(404);
+  });
+
+  it("status should be 200 if remove track from album operation sucessful", async () => {
+    const albumResp = await request(server).post("/album").send(record);
+    const trackResp = await request(server).post("/track").send(record);
+    await request(server).patch(`/album/${albumResp.body.data._id}/track/${trackResp.body.data._id}`).send();
+
+    const res = await request(server).patch(`/track/${trackResp.body.data._id}`).send();
+    expect(res.status).toBe(200);
+  });
+
+  it("status should be 404 if remove track from album fail due not track not found", async () => {
+    const res = await request(server).patch(`/track/5fcbf46161fc5b0011172255`).send();
     expect(res.status).toBe(404);
   });
 });
