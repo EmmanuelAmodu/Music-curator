@@ -1,6 +1,7 @@
 const request = require("supertest");
 const mongoose = require('mongoose');
 const app = require('../../application')();
+const server = require("../../server")
 const EventEmitter = require('events')
 
 const AlbumModel = require('../../models/album.model')
@@ -16,7 +17,6 @@ let record = {
 
 describe("End points", () => {
   beforeEach(async () => {
-    const server = require("../../server")
     serverIns = await server(app, mongoose, 5000)
     await createArtistForTest()
     record.artist = artist._id;
