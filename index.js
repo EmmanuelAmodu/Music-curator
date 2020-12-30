@@ -1,3 +1,3 @@
 const mongoose = require('mongoose')
-const app = require('./express')();
-require('./application')(app, mongoose, 6000)
+const app = require('./application')();
+require('./server')(app, mongoose, 6000)

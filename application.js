@@ -1,22 +1,18 @@
-/**
- * 
- * @param {Express} app
- * @param {Mongoose} mongoose 
- * @param {Number} port 
- */
+const express = require('express')
+const cors = require('cors')
+const router = require('./route')
+const app = express()
 
-async function main(app, mongoose, port) {
-  try {
-    const db = await mongoose.connect('mongodb://localhost:27017/music_curator?retryWrites=true&w=majority', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    })
+module.exports = function () {
+  app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 
-    return app.listen(port, () => console.log(`Listen on port ${port}`))
-  } catch (error) {
-    console.log(error)
-    return new Error('App initailization failed')
-  }
+  app.use(express.json())
+  app.use(express.urlencoded({ extended: true }))
+  app.use(cors())
+  app.use('/', router)
+  return app
 }
-
-module.exports = main
